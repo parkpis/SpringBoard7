@@ -1,5 +1,7 @@
 package com.itwillbs.controller;
 
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.itwillbs.domain.BoardVO;
+import com.itwillbs.service.BoardServise;
 
 // @RequestMapping(value = "/board/*") //접근할수있는 주소 입력
 // => 실행하는 주소가 /board/~ 시작하는 모든 주소를
@@ -20,6 +23,11 @@ public class BoardController {
 	//mylog //??
 	private static final Logger logger = 
 			LoggerFactory.getLogger(BoardController.class);
+	
+	// 서비스 객체를 주입
+	@Inject
+	private BoardServise bService;
+	
 	
 	// 기능을 정의
 	// ?? void / String 차이??
@@ -35,7 +43,7 @@ public class BoardController {
 	}
 	// 글쓰기 (정보처리) / POST
 	@RequestMapping(value = "/regist", method = RequestMethod.POST)
-	public String boradRegistPOST(BoardVO vo) {
+	public String boradRegistPOST(BoardVO vo) throws Exception {
 		logger.info(" boradRegistPOST() 실행 ");
 		
 		// 글쓰기 동작을 처리
@@ -49,12 +57,12 @@ public class BoardController {
 		
 		// 2) 서비스기능 -> DAO기능 -> DB에 저장
 		
-		
+		bService.boardRegist(vo);
 		
 		// 3) 페이지 이동(게시판 리스트)
 		
 		
-		return "";
+		return "redirect:/board/listALL";
 		
 	}
 	

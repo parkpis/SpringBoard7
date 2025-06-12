@@ -30,7 +30,7 @@ public class BoardServiseImpl implements BoardServise{
 	
 	// BoardDAO 객체 필요 => 객체를 주입받아서 사용
 	@Inject
-	private BoardDAO bdao;
+	private BoardDAO bDao;
 	
 	
 	
@@ -38,8 +38,9 @@ public class BoardServiseImpl implements BoardServise{
 	@Override
 	public void boardRegist(BoardVO vo) throws Exception {
 		
-		
-		
+		// DAO에 글쓰기 기능을 호출
+		bDao.boardInsert(vo);
+		logger.info(" 글쓰기 서비스 기능 완료 ");
 		
 		
 	}
